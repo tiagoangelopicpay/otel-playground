@@ -15,7 +15,7 @@ init: ## Initialize Terraform configurations
 
 .PHONY: quickstart
 quickstart: init ## Initialize Terraform configurations
-	terraform apply -auto-approve -target=kind_cluster.otel
+	terraform apply -auto-approve -target=kind_cluster.otelplay
 	scripts/loadimages.sh
 	terraform apply -auto-approve
 
@@ -29,8 +29,8 @@ apply: ## Starts a Kubernetes cluster running local using Docker containers and 
 
 .PHONY: down
 down: clean ## Uninstall all solution components and destroy the local Kubernetes cluster
-	kind delete cluster --name otel
+	kind delete cluster --name otelplay
 
 .PHONY: clean
 clean: ## Removing all Terraform generated config files
-	rm -rf .terraform .terraform.lock.hcl terraform.tfstate* otel-config
+	rm -rf .terraform .terraform.lock.hcl terraform.tfstate* otelplay-config
