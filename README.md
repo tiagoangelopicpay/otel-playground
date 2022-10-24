@@ -1,6 +1,24 @@
 # OpenTelemetry Play
 
-Um playground simples, interativo e divertido para aprender OpenTelemetry.
+Um cluster Kubernetes local totalmente funcional para você desenvolver e testar suas aplicações
+usando [OpenTelemetry](https://opentelemetry.io/)!
+
+## Índice
+
+1. [O que eu preciso pra começar?](#requisitos)
+1. [Criando um cluster local do Kubernetes](#kind-kubernetes-in-docker)
+1. [Expondo aplicações HTTP](#ingress-nginx-controller)
+1. [Armazene suas métricas como dados de série temporal](#prometheus)
+1. [O sistema de tracing distribuído](#jaeger)
+1. [Analisando seus dados em tabelas, gráficos e alertas](#grafana)
+1. [Processamento de dados de telemetria](#opentelemetry-collector)
+
+## Requisitos
+
+* [`Docker`](https://docs.docker.com/get-docker/)
+* [`KinD`](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
+* [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl)
+* [`Helm`](https://helm.sh/docs/intro/install/)
 
 ### KinD (Kubernetes IN Docker)
 
