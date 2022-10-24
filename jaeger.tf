@@ -34,6 +34,11 @@ resource "helm_release" "jaeger" {
       }
     })
   ]
+
+  depends_on = [
+    helm_release.prometheus,
+    helm_release.ingress_nginx,
+  ]
 }
 
 resource "kubernetes_ingress_v1" "jaeger" {
@@ -60,6 +65,8 @@ resource "kubernetes_ingress_v1" "jaeger" {
       }
     }
   }
+
+  depends_on = [helm_release.jaeger]
 }
 
 resource "kubernetes_namespace_v1" "jaeger" {

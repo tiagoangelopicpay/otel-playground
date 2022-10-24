@@ -18,6 +18,8 @@ resource "helm_release" "prometheus" {
       }
     })
   ]
+
+  depends_on = [helm_release.ingress_nginx]
 }
 
 resource "kubernetes_namespace_v1" "prometheus" {
