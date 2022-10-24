@@ -2,7 +2,7 @@ resource "helm_release" "grafana" {
   repository = "https://grafana.github.io/helm-charts"
   chart      = "grafana"
   name       = "grafana"
-  version    = "6.42.2"
+  version    = "6.43.0"
   namespace  = kubernetes_namespace_v1.grafana.metadata[0].name
 
   values = [
@@ -43,6 +43,11 @@ resource "helm_release" "grafana" {
         }
       }
     })
+  ]
+
+  depends_on = [
+    helm_release.prometheus,
+    helm_release.ingress_nginx,
   ]
 }
 
