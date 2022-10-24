@@ -15,6 +15,8 @@ usando [OpenTelemetry](https://opentelemetry.io/)!
 
 ## Requisitos
 
+Como pré-requisito, precisamos garantir que os seguintes componentes estejam instalados em nosso sistema:
+
 * [`Docker`](https://docs.docker.com/get-docker/)
 * [`KinD`](https://kind.sigs.k8s.io/docs/user/quick-start/#installation)
 * [`kubectl`](https://kubernetes.io/docs/tasks/tools/install-kubectl)
