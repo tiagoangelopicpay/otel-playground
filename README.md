@@ -7,13 +7,13 @@ usando [OpenTelemetry](https://opentelemetry.io/)!
 
 1. [O que eu preciso pra começar?](#requisitos)
 1. [Criando um cluster local do Kubernetes](#kind-kubernetes-in-docker)
-1. [Expondo aplicações HTTP](#ingress-nginx-controller)
+1. [Expondo aplicações HTTP](#nginx-ingress-controller)
 1. [Armazene suas métricas como dados de série temporal](#prometheus)
 1. [O sistema de tracing distribuído](#jaeger)
 1. [Analisando seus dados em tabelas, gráficos e alertas](#grafana)
 1. [Processamento de dados de telemetria](#opentelemetry-collector)
 
-## Requisitos
+### Requisitos
 
 Como pré-requisito, precisamos garantir que os seguintes componentes estejam instalados em nosso sistema:
 
@@ -23,6 +23,8 @@ Como pré-requisito, precisamos garantir que os seguintes componentes estejam in
 * [`Helm`](https://helm.sh/docs/intro/install/)
 
 ### KinD (Kubernetes IN Docker)
+
+Primeiro, vamos criar um cluster local do Kubernetes com a seguinte configuração:
 
 ```shell
 kind create cluster --name otelplay --config - <<EOF
@@ -44,11 +46,18 @@ kind create cluster --name otelplay --config - <<EOF
 EOF
 ```
 
-### Ingress NGINX Controller
+### NGINX Ingress Controller
+
+Vamos precisar de um ingress controller para estabelecer a conexão entre nosso ambiente local e o cluster Kubernetes.
+Para isso, faremos a instalação do [NGINX Ingress Controller](https://docs.nginx.com/nginx-ingress-controller/) usando
+um dos charts disponibilizados no seu repositório de
+charts:
 
 ```shell
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx                
 ```
+
+Uma vez adicionado o repositório basta fazer a instalação com a seguinte configuração:
 
 ```shell
 helm upgrade -i nginx ingress-nginx/ingress-nginx -n nginx --create-namespace --version 4.3.0 -f - <<EOF
@@ -133,23 +142,23 @@ EOF
 
 ```shell
 kubectl apply -n jaeger -f - <<EOF
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: jaeger
-spec:
-  ingressClassName: nginx
-  rules:
-    - host: jaeger.lvh.me
-      http:
-        paths:
-          - backend:
-              service:
-                name: jaeger-query
-                port:
-                  name: http-query
-            path: /
-            pathType: ImplementationSpecific
+    apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: jaeger
+    spec:
+      ingressClassName: nginx
+      rules:
+        - host: jaeger.lvh.me
+          http:
+            paths:
+              - backend:
+                  service:
+                    name: jaeger-query
+                    port:
+                      name: http-query
+                path: /
+                pathType: ImplementationSpecific
 EOF
 ```
 
