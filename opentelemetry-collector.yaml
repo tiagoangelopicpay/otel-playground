@@ -1,0 +1,52 @@
+exporters:
+  logging:
+    loglevel: debug
+  otlp:
+    endpoint: $JAEGER_OTLP_ENDPOINT
+    tls:
+      insecure: true
+  prometheusremotewrite:
+    endpoint: http://$PROMETHEUS_PUSHGATEWAY_ENDPOINT/api/v1/write
+extensions:
+  health_check: {}
+  memory_ballast:
+    size_in_percentage: 33
+processors:
+  batch: {}
+  memory_limiter:
+    check_interval: 5s
+    limit_percentage: 80
+    spike_limit_percentage: 25
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+service:
+  extensions:
+    - health_check
+    - memory_ballast
+  pipelines:
+    metrics:
+      exporters:
+        - logging
+        - prometheusremotewrite
+      processors:
+        - memory_limiter
+        - batch
+      receivers:
+        - otlp
+    traces:
+      exporters:
+        - logging
+        - otlp
+      processors:
+        - memory_limiter
+        - batch
+      receivers:
+        - otlp
+  telemetry:
+    metrics:
+      address: 0.0.0.0:8888
