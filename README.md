@@ -54,7 +54,7 @@ um dos charts disponibilizados no seu repositório de
 charts:
 
 ```shell
-helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx                
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx --force-update
 ```
 
 Uma vez adicionado o repositório basta fazer a instalação com a seguinte configuração:
@@ -82,7 +82,7 @@ EOF
 ### Prometheus
 
 ```shell
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts        
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts --force-update
 ```
 
 ```shell
@@ -112,7 +112,7 @@ EOF
 ### Jaeger
 
 ```shell
-helm repo add jaegertracing https://jaegertracing.github.io/helm-charts               
+helm repo add jaegertracing https://jaegertracing.github.io/helm-charts --force-update
 ```
 
 ```shell
@@ -165,7 +165,7 @@ EOF
 ### Grafana
 
 ```shell
-helm repo add grafana https://grafana.github.io/helm-charts                     
+helm repo add grafana https://grafana.github.io/helm-charts --force-update
 ```
 
 ```shell
@@ -197,7 +197,7 @@ EOF
 ### OpenTelemetry Collector
 
 ```shell
-helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts
+helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm-charts --force-update
 ```
 
 ```shell
