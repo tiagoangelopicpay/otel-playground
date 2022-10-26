@@ -86,7 +86,7 @@ helm repo add prometheus-community https://prometheus-community.github.io/helm-c
 ```
 
 ```shell
-helm upgrade -i prometheus prometheus-community/prometheus -n prometheus --create-namespace --version 15.16.1 -f - <<EOF
+helm upgrade -i prometheus prometheus-community/prometheus -n prometheus --create-namespace --version 15.17.0 -f - <<EOF
     alertmanager:
       enabled: false
     kubeStateMetrics:
@@ -169,7 +169,7 @@ helm repo add grafana https://grafana.github.io/helm-charts --force-update
 ```
 
 ```shell
-helm upgrade -i grafana grafana/grafana -n grafana --create-namespace --version 6.43.0 -f - <<EOF
+helm upgrade -i grafana grafana/grafana -n grafana --create-namespace --version 6.43.1 -f - <<EOF
     datasources:
       datasources.yaml:
         apiVersion: 1
@@ -201,7 +201,7 @@ helm repo add open-telemetry https://open-telemetry.github.io/opentelemetry-helm
 ```
 
 ```shell
-helm upgrade -i default open-telemetry/opentelemetry-collector -n otel --create-namespace --version 0.36.3 -f - <<EOF
+helm upgrade -i default open-telemetry/opentelemetry-collector -n otel --create-namespace --version 0.37.2 -f - <<EOF
     config:
       exporters:
         logging:
