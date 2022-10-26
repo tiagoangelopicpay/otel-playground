@@ -50,8 +50,7 @@ EOF
 
 Vamos precisar de um ingress controller para estabelecer a conexão entre nosso ambiente local e o cluster Kubernetes.
 Para isso, faremos a instalação do [NGINX Ingress Controller](https://docs.nginx.com/nginx-ingress-controller/) usando
-um dos charts disponibilizados no seu repositório de
-charts:
+um dos charts disponibilizados no seu repositório de charts:
 
 ```shell
 helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx --force-update
@@ -116,9 +115,15 @@ EOF
 
 ### Jaeger
 
+Para os traces temos necessidade de um sistema que, além de armazenar esses dados, exponha uma interface amigável que
+proporcione a análise desses rastreamentos de forma agregada. Para isso, usaremos
+o [Jaeger](https://www.jaegertracing.io/) disponivel no repositório de charts:
+
 ```shell
 helm repo add jaegertracing https://jaegertracing.github.io/helm-charts --force-update
 ```
+
+Feito isso, basta instalar da seguinte forma:
 
 ```shell
 helm upgrade -i jaeger jaegertracing/jaeger -n jaeger --create-namespace --version 0.62.1 -f - <<EOF
@@ -144,6 +149,9 @@ helm upgrade -i jaeger jaegertracing/jaeger -n jaeger --create-namespace --versi
       enabled: false
 EOF
 ```
+
+Por uma limitação (:poop:) no chart do Jaeger disponibilizado pela comunidade, temos que manualmente configurar o
+Ingress a fim de expor a UI do Jaeger. Para nossa sorte, sua configuração é bem simples:
 
 ```shell
 kubectl apply -n jaeger -f - <<EOF
