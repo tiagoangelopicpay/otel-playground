@@ -81,9 +81,14 @@ EOF
 
 ### Prometheus
 
+Precisamos registrar as métricas geradas por nossas aplicações em um time series database. Para isso, vamos instalar
+o [Prometheus](https://prometheus.io/) utilizando um dos charts oferecidos no repositório de charts:
+
 ```shell
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts --force-update
 ```
+
+Com o repositório atualizado é só instalar com a seguinte configuração:
 
 ```shell
 helm upgrade -i prometheus prometheus-community/prometheus -n prometheus --create-namespace --version 15.17.0 -f - <<EOF
